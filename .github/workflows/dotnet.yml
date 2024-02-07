@@ -1,0 +1,57 @@
+name: .NET 8.0
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - name: .NET info
+      run: dotnet --info
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -c Release
+    - name: Test
+      run: dotnet test -c Release --no-restore --no-build --settings Default.runsettings --filter "TestCategory!=FailOnCi" --logger trx --collect:"XPlat Code Coverage" --results-directory TestResultsCI /p:CollectCoverage=true /p:CoverletOutput="../TestResultsCI/" /p:MergeWith="../TestResultsCI/coverage.json" /maxcpucount:1 /p:CoverletOutputFormat=\"json,cobertura,opencover\" /p:ExcludeByAttribute=\"Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute,ExcludeFromCodeCoverageAttribute\"
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: 'TestResultsCI/coverage.cobertura.xml'
+        badge: true
+        format: 'markdown'
+        output: 'both'
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md
+    - name: Write to Job Summary
+      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+    - name: Package
+      run: dotnet pack --no-build -c Release
+    - name: 'Upload NuGetPackage'
+      uses: actions/upload-artifact@v4
+      with:
+        name: NugetPackages
+        path: Hangfire.Dashboard.RestrictIpAuthorization/nupkg/*.nupkg
+        retention-days: 1
+        if-no-files-found: error
+    - name: 'Upload Symbol NuGet Package'
+      uses: actions/upload-artifact@v4
+      with:
+        name: SymbolNugetPackages
+        path: Hangfire.Dashboard.RestrictIpAuthorization/nupkg/*.snupkg
+        retention-days: 1
+        if-no-files-found: error
