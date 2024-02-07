@@ -19,7 +19,7 @@
     <PackageTags>hangfire;dasboard filter</PackageTags>
     <Authors>Markus Blasek</Authors>
     <Company />
-    <PackageId>Hangfire.Dashboard.RestrictIpAuthorization</PackageId>
+    <PackageId>Custom.Hangfire.Dashboard.RestrictIpAuthorization</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
