@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Hangfire.Dashboard.RestrictIPAuthorization.Tests;
+namespace Custom.Hangfire.Dashboard.RestrictIpAuthorization.Tests;
 
 [TestClass]
 public class RestrictIpAuthorizationFilterTests

@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hangfire.Dashboard.RestrictIpAuthorization\Hangfire.Dashboard.RestrictIpAuthorization.csproj" />
+    <ProjectReference Include="..\Hangfire.Dashboard.RestrictIpAuthorization\Custom.Hangfire.Dashboard.RestrictIpAuthorization.csproj" />
   </ItemGroup>
 
 </Project>

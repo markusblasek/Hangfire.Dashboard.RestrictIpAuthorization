@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Hangfire.Dashboard.RestrictIPAuthorization;
+namespace Custom.Hangfire.Dashboard.RestrictIpAuthorization;
 
 [ExcludeFromCodeCoverage]
 public class RestrictIpAuthorizationFilterOptions

@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using Hangfire.Dashboard;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Hangfire.Dashboard.RestrictIPAuthorization;
+namespace Custom.Hangfire.Dashboard.RestrictIpAuthorization;
 
 public class RestrictIpAuthorizationFilter : IDashboardAuthorizationFilter
 {
