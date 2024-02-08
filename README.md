@@ -13,6 +13,20 @@ Restrict IP addresses to access hangfire (e.g. dashboard)
 dotnet add package Custom.Hangfire.Dashboard.RestrictIpAuthorization
 ```
 
+## Usage
+
+```cs
+var restrictIpAuthorizationFilter = new RestrictIpAuthorizationFilter(
+    new RestrictIpAuthorizationFilterOptions
+    {
+        AllowedIps = ["::1", "localhost", "10.27.147.54"]
+    });
+app.UseHangfireDashboard(options: new DashboardOptions
+{
+    Authorization = [restrictIpAuthorizationFilter]
+});
+```
+
 ## License
 
 The MIT License. See the [license](https://github.com/markusblasek/Hangfire.Dashboard.RestrictIpAuthorization/blob/main/LICENSE) file for details.
